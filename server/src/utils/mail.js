@@ -1,11 +1,11 @@
-const mailer = require("../config/mailer");
+const mailer = require('../config/mailer')
 
 async function sendForgotPasswordEmail(mail, token) {
-    console.log("Password Reset token: ", token);
+    console.log('Password Reset token: ', token)
     await mailer.sendMail({
-        from: "Oxsiyo@outlook.com",
+        from: 'Oxsiyo@outlook.com',
         to: mail,
-        subject: "TODO: Forgot Password",
+        subject: 'TODO: Forgot Password',
         text: "This is an automated password request email sent by the server.\
           Please don't reply.",
         html: `\
@@ -14,15 +14,15 @@ async function sendForgotPasswordEmail(mail, token) {
           know about this then please delete this email.</p><br>\
           <b><a href='http://${process.env.ORIGIN}/api/user/resetpassword?token=${token}'>\
           Click here to change your password</a></b>`, // html body
-    });
+    })
 }
 
 async function sendVerificationEmail(mail, token) {
-    console.log("Mail verification token: ", token);
+    console.log('Mail verification token: ', token)
     await mailer.sendMail({
-        from: "Oxsiyo@outlook.com",
+        from: 'Oxsiyo@outlook.com',
         to: mail,
-        subject: "TODO: Verify Email",
+        subject: 'TODO: Verify Email',
         text: "This is an automated email verification request sent by the server.\
             Please don't reply.",
         html: `\
@@ -31,7 +31,7 @@ async function sendVerificationEmail(mail, token) {
             know about this then please delete this email.</p><br>\
             <b><a href='http://${process.env.ORIGIN}/api/user/verify?token=${token}'>\
             Click here to verify your email</a></b>`, // html body
-    });
+    })
 }
 
-module.exports = { sendForgotPasswordEmail, sendVerificationEmail };
+module.exports = { sendForgotPasswordEmail, sendVerificationEmail }

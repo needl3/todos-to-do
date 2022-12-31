@@ -1,5 +1,5 @@
 const express = require('express')
-const {logoutQuery} = require('../../utils/sqldriver')
+const { logoutQuery } = require('../../utils/sqldriver')
 
 /**
  * @param {express.Request} req
@@ -8,15 +8,14 @@ const {logoutQuery} = require('../../utils/sqldriver')
  */
 
 module.exports = async (req, res) => {
-    const {username} = req.body
+    const { username } = req.body
 
-    try{
+    try {
         await logoutQuery(username)
         res.clearCookie('bearerToken')
-        res.json({message: 'User has been logged out.'})
-    }catch(e){
+        res.json({ message: 'User has been logged out.' })
+    } catch (e) {
         console.error(e)
-        res.status(500).json({message: 'Something went wrong'})
+        res.status(500).json({ message: 'Something went wrong' })
     }
-
 }

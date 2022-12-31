@@ -1,5 +1,5 @@
-import LogoutStyled from "../wrappers/Logout";
-import { logoutCall } from "../shared/calls";
+import LogoutStyled from '../wrappers/Logout'
+import { logoutCall } from '../shared/calls'
 
 export default function Logout({
     logout,
@@ -13,13 +13,13 @@ export default function Logout({
                 </p>
                 <button
                     onClick={async () => {
-                        logoutCall(token);
-                        logout();
+                        logoutCall(token)
+                        logout()
                     }}
                 >
                     Logout
                 </button>
             </div>
         </LogoutStyled>
-    );
+    )
 }

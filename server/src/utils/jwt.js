@@ -1,23 +1,23 @@
-const jwt = require("jsonwebtoken");
+const jwt = require('jsonwebtoken')
 
 function jwtVerify(token) {
-    let verified = null;
+    let verified = null
     try {
-        verified = jwt.verify(token, process.env.SECRET);
+        verified = jwt.verify(token, process.env.SECRET)
     } catch (e) {
-        if (e.name === "TokenExpiredError") {
+        if (e.name === 'TokenExpiredError') {
             e.username = jwt.verify(token, process.env.SECRET, {
                 ignoreExpiration: true,
-            }).username;
-            throw e;
+            }).username
+            throw e
         }
-        console.error(e);
+        console.error(e)
     }
-    return verified;
+    return verified
 }
 
-function jwtSign(token, expiry = "30d") {
-    return jwt.sign(token, process.env.SECRET, { expiresIn: expiry });
+function jwtSign(token, expiry = '30d') {
+    return jwt.sign(token, process.env.SECRET, { expiresIn: expiry })
 }
 
-module.exports = { jwtVerify, jwtSign };
+module.exports = { jwtVerify, jwtSign }

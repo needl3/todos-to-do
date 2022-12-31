@@ -111,7 +111,7 @@ function getTodoQuery(page, limit, username) {
         // Could be vulnerable, didnt check
         connection.query(
             'SELECT * from todos where username=? LIMIT ? OFFSET ?',
-            [username, limit, page*limit],
+            [username, limit, page * limit],
             (e, r, f) => {
                 if (e) return reject(e)
                 else resolve(r)

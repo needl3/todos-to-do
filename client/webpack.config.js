@@ -1,63 +1,67 @@
-const path = require("path");
-const HtmlWebpackPlugin = require("html-webpack-plugin");
+const path = require('path')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
 module.exports = (env, argv) => {
     return {
-        entry: path.resolve(__dirname, "src", "index.js"),
+        entry: path.resolve(__dirname, 'src', 'index.js'),
         output: {
-            filename: "[name].bundle.js",
-            path: path.resolve(__dirname, "public"),
+            filename: '[name].bundle.js',
+            path: path.resolve(__dirname, '../public'),
             clean: true,
         },
         resolve: {
-            root: path.resolve("."),
+            root: path.resolve('.'),
         },
-        mode: argv.mode === "development" ? "development" : "production",
+        mode: argv.mode === 'development' ? 'development' : 'production',
         devServer: {
-            static: path.resolve(__dirname, "public"),
+            static: path.resolve(__dirname, 'public'),
             compress: true,
             port: 3000,
         },
         resolve: {
-            extensions: [".js", ".jsx"],
+            extensions: ['.js', '.jsx'],
         },
         optimization: {
             splitChunks: {
-                chunks: "all",
+                chunks: 'all',
             },
         },
-        devtool: "inline-source-map",
-        infrastructureLogging: { level: "error" },
+        devtool: 'inline-source-map',
+        infrastructureLogging: { level: 'error' },
         module: {
             rules: [
                 {
                     test: /\.s[ac]ss$/i,
-                    use: ["style-loader", "css-loader", "sass-loader"],
+                    use: ['style-loader', 'css-loader', 'sass-loader'],
                 },
                 {
                     test: /\.css$/i,
-                    use: ["style-loader", "css-loader"],
+                    use: ['style-loader', 'css-loader'],
                 },
                 {
                     test: /\.js$/,
                     exclude: /node_modules/,
                     use: {
-                        loader: "babel-loader",
+                        loader: 'babel-loader',
                     },
                 },
                 {
                     test: /\.jsx$/,
                     exclude: /node_modules/,
                     use: {
-                        loader: "babel-loader",
+                        loader: 'babel-loader',
                     },
                 },
             ],
         },
         plugins: [
             new HtmlWebpackPlugin({
-                title: "Todos to do",
-                template: path.resolve(__dirname, "public", "index.html")
+                title: 'Todos to do',
+                template: path.resolve(
+                    __dirname,
+                    'public',
+                    'index.html.template'
+                ),
             }),
         ],
-    };
-};
+    }
+}

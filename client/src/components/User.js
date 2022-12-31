@@ -1,44 +1,44 @@
-import { React, useState } from "react";
-import Login from "./Login";
-import Logout from "./Logout";
-import Register from "./Register";
-import UserStyled from "../wrappers/User";
-import { modes } from "../shared/constants";
-import { userCall } from "../shared/calls";
+import { React, useState } from 'react'
+import Login from './Login'
+import Logout from './Logout'
+import Register from './Register'
+import UserStyled from '../wrappers/User'
+import { modes } from '../shared/constants'
+import { userCall } from '../shared/calls'
 export default function User({ setToken }) {
     const [userData, setUserData] = useState(
-        JSON.parse(localStorage.getItem("userData")) || {
-            status: "Not Logged In",
+        JSON.parse(localStorage.getItem('userData')) || {
+            status: 'Not Logged In',
             accessToken: undefined,
             dialogMode: modes.DORMANT,
             name: undefined,
         }
-    );
-    const handleLogin = async (token) => {
+    )
+    const handleLogin = async token => {
         if (token !== undefined) {
-            const user = await (await userCall(token)).json();
+            const user = await (await userCall(token)).json()
             const newData = {
-                status: "Logged In",
+                status: 'Logged In',
                 accessToken: token,
                 dialogMode: modes.DORMANT,
                 name: user.user,
-            };
-            setUserData(newData);
-            setToken(token);
-            localStorage.setItem("userData", JSON.stringify(newData));
+            }
+            setUserData(newData)
+            setToken(token)
+            localStorage.setItem('userData', JSON.stringify(newData))
         }
-    };
-    const toggleAuth = (newMode) => {
-        setUserData({ ...userData, ...{ dialogMode: newMode } });
-    };
+    }
+    const toggleAuth = newMode => {
+        setUserData({ ...userData, ...{ dialogMode: newMode } })
+    }
     return (
         <UserStyled>
             <div id="login-status-container">
                 <button
                     className={
-                        userData.status === "Logged In"
-                            ? "logged-in"
-                            : "not-logged-in"
+                        userData.status === 'Logged In'
+                            ? 'logged-in'
+                            : 'not-logged-in'
                     }
                     onClick={() => {
                         setUserData({
@@ -46,12 +46,12 @@ export default function User({ setToken }) {
                             ...{
                                 dialogMode:
                                     userData.dialogMode === modes.DORMANT
-                                        ? userData.status === "Logged In"
+                                        ? userData.status === 'Logged In'
                                             ? modes.LOGOUT
                                             : modes.LOGIN
                                         : modes.DORMANT,
                             },
-                        });
+                        })
                     }}
                 >
                     {userData.status}
@@ -60,28 +60,28 @@ export default function User({ setToken }) {
                     <div id="dialog">
                         <Login
                             setData={handleLogin}
-                            toggleAuth={(v) => toggleAuth(v)}
+                            toggleAuth={v => toggleAuth(v)}
                         />
                     </div>
                 )}
                 {userData.dialogMode === modes.REGISTER && (
                     <div id="dialog">
-                        <Register toggleAuth={(v) => toggleAuth(v)} />
+                        <Register toggleAuth={v => toggleAuth(v)} />
                     </div>
                 )}
                 {userData.dialogMode === modes.LOGOUT && (
                     <div id="dialog">
                         <Logout
                             logout={() => {
-                                setToken(undefined);
+                                setToken(undefined)
                                 setUserData({
-                                    status: "Not Logged In",
+                                    status: 'Not Logged In',
                                     accessToken: undefined,
                                     dialogMode: modes.DORMANT,
                                     name: undefined,
-                                });
-                                localStorage.removeItem("todos");
-                                localStorage.removeItem("userData");
+                                })
+                                localStorage.removeItem('todos')
+                                localStorage.removeItem('userData')
                             }}
                             userData={userData}
                         />
@@ -89,5 +89,5 @@ export default function User({ setToken }) {
                 )}
             </div>
         </UserStyled>
-    );
+    )
 }

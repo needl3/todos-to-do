@@ -1,6 +1,6 @@
-const express = require("express");
-const { registerQuery } = require("../../utils/sqldriver");
-const { jwtVerify } = require("../../utils/jwt");
+const express = require('express')
+const { registerQuery } = require('../../utils/sqldriver')
+const { jwtVerify } = require('../../utils/jwt')
 
 /**
  * @param {express.Request} req
@@ -9,14 +9,14 @@ const { jwtVerify } = require("../../utils/jwt");
  */
 
 module.exports = async (req, res) => {
-    const { token } = req.query;
+    const { token } = req.query
     if (!token)
-        return res.status(401).json({ message: "Verification token missing" });
+        return res.status(401).json({ message: 'Verification token missing' })
 
     try {
         const data = await jwtVerify(token)
         if (data) {
-            await registerQuery(data.username, data.password, data.email);
+            await registerQuery(data.username, data.password, data.email)
             console.log(req.headers)
             res.status(302).send(`
                 <style>
@@ -33,14 +33,14 @@ module.exports = async (req, res) => {
                     </script>
             `)
         }
-        res.status(401).status({message: 'Invalid token'})
+        res.status(401).status({ message: 'Invalid token' })
     } catch (e) {
         console.error(e)
-        if (e.name === "TokenExpiredError")
+        if (e.name === 'TokenExpiredError')
             return res
                 .status(500)
-                .json({ message: "Token expired. Register again" });
+                .json({ message: 'Token expired. Register again' })
 
-        res.status(409).json({ message: "Verification failed" });
+        res.status(409).json({ message: 'Verification failed' })
     }
-};
+}
