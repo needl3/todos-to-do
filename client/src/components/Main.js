@@ -1,10 +1,8 @@
 import { faPlusCircle } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React, { Suspense, useEffect, useState } from 'react'
-const TodoItem = React.lazy(() => {
-    import('./TodoItem')
-})
-import MainStyled from '../wrappers/Main'
+const TodoItem = React.lazy(() => import('./TodoItem'))
+const MainStyled = React.lazy(() => import('../wrappers/Main'))
 import { addCall, deleteCall, getCall } from '../shared/calls'
 
 export default function Main({ accessToken }) {
@@ -45,14 +43,12 @@ export default function Main({ accessToken }) {
                 <ul id="todo-created">
                     {todos.map(todo => {
                         return (
-                            <Suspense fallback={<div>Loading Todo Item</div>}>
-                                <TodoItem
-                                    token={accessToken}
-                                    item={todo}
-                                    updateTodo={v => handleDelete(v, todo.id)}
-                                    key={todo.id}
-                                />
-                            </Suspense>
+                            <TodoItem
+                                token={accessToken}
+                                item={todo}
+                                updateTodo={v => handleDelete(v, todo.id)}
+                                key={todo.id}
+                            />
                         )
                     })}
                 </ul>

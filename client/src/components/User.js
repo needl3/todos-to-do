@@ -1,16 +1,13 @@
 import React, { Suspense, useState } from 'react'
-const Login = React.lazy(() => {
-    import('./Login')
-})
-const Logout = React.lazy(() => {
-    import('./Logout')
-})
-const Register = React.lazy(() => {
-    import('./Register')
-})
-import UserStyled from '../wrappers/User'
+
+const Login = React.lazy(() => import('./Login'))
+const Logout = React.lazy(() => import('./Logout'))
+const Register = React.lazy(() => import('./Register'))
+const UserStyled = React.lazy(() => import('../wrappers/User'))
+
 import { modes } from '../shared/constants'
 import { userCall } from '../shared/calls'
+
 export default function User({ setToken }) {
     const [userData, setUserData] = useState(
         JSON.parse(localStorage.getItem('userData')) || {
