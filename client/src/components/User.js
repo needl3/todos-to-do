@@ -1,7 +1,13 @@
-import { React, useState } from 'react'
-import Login from './Login'
-import Logout from './Logout'
-import Register from './Register'
+import React, { Suspense, useState } from 'react'
+const Login = React.lazy(() => {
+    import('./Login')
+})
+const Logout = React.lazy(() => {
+    import('./Logout')
+})
+const Register = React.lazy(() => {
+    import('./Register')
+})
 import UserStyled from '../wrappers/User'
 import { modes } from '../shared/constants'
 import { userCall } from '../shared/calls'
@@ -58,33 +64,43 @@ export default function User({ setToken }) {
                 </button>
                 {userData.dialogMode === modes.LOGIN && (
                     <div id="dialog">
-                        <Login
-                            setData={handleLogin}
-                            toggleAuth={v => toggleAuth(v)}
-                        />
+                        <Suspense fallback={<div>Loading Login Component</div>}>
+                            <Login
+                                setData={handleLogin}
+                                toggleAuth={v => toggleAuth(v)}
+                            />
+                        </Suspense>
                     </div>
                 )}
                 {userData.dialogMode === modes.REGISTER && (
                     <div id="dialog">
-                        <Register toggleAuth={v => toggleAuth(v)} />
+                        <Suspense
+                            fallback={<div>Loading Register Component</div>}
+                        >
+                            <Register toggleAuth={v => toggleAuth(v)} />
+                        </Suspense>
                     </div>
                 )}
                 {userData.dialogMode === modes.LOGOUT && (
                     <div id="dialog">
-                        <Logout
-                            logout={() => {
-                                setToken(undefined)
-                                setUserData({
-                                    status: 'Not Logged In',
-                                    accessToken: undefined,
-                                    dialogMode: modes.DORMANT,
-                                    name: undefined,
-                                })
-                                localStorage.removeItem('todos')
-                                localStorage.removeItem('userData')
-                            }}
-                            userData={userData}
-                        />
+                        <Suspense
+                            fallback={<div>Logout Component Loading</div>}
+                        >
+                            <Logout
+                                logout={() => {
+                                    setToken(undefined)
+                                    setUserData({
+                                        status: 'Not Logged In',
+                                        accessToken: undefined,
+                                        dialogMode: modes.DORMANT,
+                                        name: undefined,
+                                    })
+                                    localStorage.removeItem('todos')
+                                    localStorage.removeItem('userData')
+                                }}
+                                userData={userData}
+                            />
+                        </Suspense>
                     </div>
                 )}
             </div>
