@@ -61,12 +61,10 @@ export default function User({ setToken }) {
                 </button>
                 {userData.dialogMode === modes.LOGIN && (
                     <div id="dialog">
-                        <Suspense fallback={<div>Loading Login Component</div>}>
-                            <Login
-                                setData={handleLogin}
-                                toggleAuth={v => toggleAuth(v)}
-                            />
-                        </Suspense>
+                        <Login
+                            setData={handleLogin}
+                            toggleAuth={v => toggleAuth(v)}
+                        />
                     </div>
                 )}
                 {userData.dialogMode === modes.REGISTER && (
@@ -80,24 +78,20 @@ export default function User({ setToken }) {
                 )}
                 {userData.dialogMode === modes.LOGOUT && (
                     <div id="dialog">
-                        <Suspense
-                            fallback={<div>Logout Component Loading</div>}
-                        >
-                            <Logout
-                                logout={() => {
-                                    setToken(undefined)
-                                    setUserData({
-                                        status: 'Not Logged In',
-                                        accessToken: undefined,
-                                        dialogMode: modes.DORMANT,
-                                        name: undefined,
-                                    })
-                                    localStorage.removeItem('todos')
-                                    localStorage.removeItem('userData')
-                                }}
-                                userData={userData}
-                            />
-                        </Suspense>
+                        <Logout
+                            logout={() => {
+                                setToken(undefined)
+                                setUserData({
+                                    status: 'Not Logged In',
+                                    accessToken: undefined,
+                                    dialogMode: modes.DORMANT,
+                                    name: undefined,
+                                })
+                                localStorage.removeItem('todos')
+                                localStorage.removeItem('userData')
+                            }}
+                            userData={userData}
+                        />
                     </div>
                 )}
             </div>

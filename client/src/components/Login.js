@@ -10,10 +10,10 @@ export default function Login(props) {
         loginTries: {
             message: [
                 'Locked',
-                'The End Try',
-                'Last Try for sure',
-                'Last Try',
-                'Try Again',
+                'LastTry',
+                'OnceMore',
+                'TryAgain',
+                'Again',
                 'Login',
             ],
             triesRemaining: 5,

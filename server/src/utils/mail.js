@@ -3,7 +3,7 @@ const mailer = require('../config/mailer')
 async function sendForgotPasswordEmail(mail, token) {
     console.log('Password Reset token: ', token)
     await mailer.sendMail({
-        from: 'Oxsiyo@outlook.com',
+        from: 'Todos To Do',
         to: mail,
         subject: 'TODO: Forgot Password',
         text: "This is an automated password request email sent by the server.\
@@ -20,7 +20,7 @@ async function sendForgotPasswordEmail(mail, token) {
 async function sendVerificationEmail(mail, token) {
     console.log('Mail verification token: ', token)
     await mailer.sendMail({
-        from: 'Oxsiyo@outlook.com',
+        from: 'Todos To Do',
         to: mail,
         subject: 'TODO: Verify Email',
         text: "This is an automated email verification request sent by the server.\

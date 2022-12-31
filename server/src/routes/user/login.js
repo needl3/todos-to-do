@@ -16,10 +16,10 @@ module.exports = async (req, res) => {
     } catch (e) {
         console.log(e)
         if (e === 'no-user')
-            return res.status(400).json({ message: 'No such user exists' })
+            return res.status(401).json({ message: 'No such user exists' })
 
         if (e === 'invalid-credentials')
-            return res.status(401).json({ message: 'Invalid credentials' })
+            return res.status(400).json({ message: 'Invalid credentials' })
 
         res.status(500).json({
             message: 'Something went wrong while configuring tokens',

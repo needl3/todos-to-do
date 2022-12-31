@@ -10,6 +10,7 @@ const status = {
     NOT_REGISTERED: 'not-registered',
     NO_ATTEMPT: '',
     REGISTERING: 'Registering',
+    REGISTER_FAILED: 'Username/Email already used',
 }
 
 export { modes, status }

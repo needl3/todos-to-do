@@ -39,7 +39,7 @@ export default function Register(props) {
             .catch(res => {
                 setRegisterData({
                     ...registerData,
-                    registeredStatus: status.NOT_REGISTERED,
+                    registeredStatus: status.REGISTER_FAILED,
                 })
             })
     }
@@ -50,9 +50,9 @@ export default function Register(props) {
                     id="register-status"
                     className={registerData.registeredStatus}
                 >
-                    {registerData.registeredStatus === 'registered'
-                        ? 'Email sent'
-                        : ''}
+                    {registerData.registeredStatus === status.REGISTERED
+                        ? 'Email Sent'
+                        : registerData.registeredStatus}
                 </div>
                 <div id="name">
                     <input

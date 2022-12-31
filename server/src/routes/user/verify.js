@@ -28,7 +28,7 @@ module.exports = async (req, res) => {
                 Successfully verified. Redirecting to Home page for login.
                 <script>
                     setTimeout(() => {
-                       window.location.href = "${process.env.ORIGIN}" 
+                       window.location.href = "https://${process.env.ORIGIN}" 
                     }, 2000);
                     </script>
             `)
