@@ -1,5 +1,5 @@
 const urls = {
-    base: 'http://localhost:5000/',
+    base: 'https://todos-to-do.azurewebsites.net/',
     login: 'api/user/login/',
     register: 'api/user/requestverification/',
     user: 'api/user/',
