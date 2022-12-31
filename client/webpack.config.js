@@ -5,7 +5,7 @@ module.exports = (env, argv) => {
         entry: path.resolve(__dirname, 'src', 'index.js'),
         output: {
             filename: '[name].bundle.js',
-            path: path.resolve(__dirname, '../public'),
+            path: path.resolve(__dirname, '../server/public'),
             clean: true,
         },
         resolve: {
@@ -61,6 +61,7 @@ module.exports = (env, argv) => {
                     'public',
                     'index.html.template'
                 ),
+                favicon: './public/favicon.ico',
             }),
         ],
     }

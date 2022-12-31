@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html>
     <title>Todos To Do</title>
-    <head></head>
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests"id>
+     <head></head>
     <body>
         <div id="root"></div>
     </body>
