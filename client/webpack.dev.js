@@ -2,7 +2,7 @@ const { merge } = require('webpack-merge')
 const common = require('./webpack.common')
 const path = require('path')
 
-const m = merge(common, {
+module.exports = merge(common, {
     mode: 'development',
     infrastructureLogging: { level: 'error' },
     devtool: 'inline-source-map',
@@ -12,7 +12,3 @@ const m = merge(common, {
         port: 3000,
     },
 })
-
-console.log(m)
-
-module.exports = m

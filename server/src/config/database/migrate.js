@@ -33,7 +33,6 @@ connection.query(
         username VARCHAR(128) NOT NULL UNIQUE,\
         email VARCHAR(128) NOT NULL,\
         password VARCHAR(1020) NOT NULL,\
-        refreshtoken TEXT,\
         accesstoken TEXT,\
         PRIMARY KEY (email))\
     '

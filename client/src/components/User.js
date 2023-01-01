@@ -1,9 +1,9 @@
-import React, { Suspense, useState } from 'react'
+import { useState } from 'react'
 
-const Login = React.lazy(() => import('./Login'))
-const Logout = React.lazy(() => import('./Logout'))
-const Register = React.lazy(() => import('./Register'))
-const UserStyled = React.lazy(() => import('../wrappers/User'))
+import Login from './Login'
+import Register from './Register'
+import Logout from './Logout'
+import UserStyled from '../wrappers/User'
 
 import { modes } from '../shared/constants'
 import { userCall } from '../shared/calls'
@@ -69,11 +69,7 @@ export default function User({ setToken }) {
                 )}
                 {userData.dialogMode === modes.REGISTER && (
                     <div id="dialog">
-                        <Suspense
-                            fallback={<div>Loading Register Component</div>}
-                        >
-                            <Register toggleAuth={v => toggleAuth(v)} />
-                        </Suspense>
+                        <Register toggleAuth={v => toggleAuth(v)} />
                     </div>
                 )}
                 {userData.dialogMode === modes.LOGOUT && (

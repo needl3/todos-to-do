@@ -1,8 +1,8 @@
 import { faPlusCircle } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import React, { useEffect, useState } from 'react'
-const TodoItem = React.lazy(() => import('./TodoItem'))
-const MainStyled = React.lazy(() => import('../wrappers/Main'))
+import { useEffect, useState } from 'react'
+import TodoItem from './TodoItem'
+import MainStyled from '../wrappers/Main'
 import { addCall, deleteCall, getCall } from '../shared/calls'
 
 export default function Main({ accessToken }) {
