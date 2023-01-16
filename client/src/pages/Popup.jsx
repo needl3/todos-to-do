@@ -29,7 +29,7 @@ export default function Popup() {
 
     return (
         <ul
-            className={`fixed top left-1/2 mt-4 -translate-x-1/2 items-center bg-transparent flex flex-col gap-y-2`}
+            className={`fixed top left-1/2 mt-4 -translate-x-1/2 items-center bg-transparent flex flex-col gap-y-2 z-10`}
         >
             {displayablePopups?.map(popup => {
                 return (

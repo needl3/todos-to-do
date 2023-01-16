@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from 'react-redux'
-import { changeState, login } from '../../redux/actions'
+import { changeState } from '../../redux/actions'
 import states from '../../utils/states'
 
 export default function Nav() {
@@ -15,7 +15,7 @@ export default function Nav() {
                 name
                     ? 'border-loggedin text-loggedin'
                     : ' text-notloggedin border-notloggedin'
-            } my-2 self-end w-fit`}
+            } my-2 self-end w-fit mr-10`}
             onClick={() => {
                 if (name) dispatch(changeState(states.PROFILE))
                 else dispatch(changeState(states.AUTH))

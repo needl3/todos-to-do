@@ -14,7 +14,6 @@ export default id => async (dispatch, getState) => {
         todos[index].cloud = syncStatus.SYNCING
         dispatch({ type: actions.SYNC_TODO, payload: [...todos] })
         try {
-            console.log(todos[index])
             const response = await fetch(urls.todo, {
                 method: 'POST',
                 headers: {

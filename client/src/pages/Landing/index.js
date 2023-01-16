@@ -8,14 +8,23 @@ import TodoItem from './TodoItem'
 import changeState from '../../redux/actions/changeState'
 
 import states, { checkStatus } from '../../utils/states'
+import { useRef } from 'react'
 
 export default function Landing() {
     const todos = useSelector(state => state.todo)
+    const outside = useRef()
 
     const dispatch = useDispatch()
 
     return (
-        <div className="flex flex-col mx-4">
+        <div
+            ref={outside}
+            className="flex flex-col mx-4 border h-screen"
+            onClick={e => {
+                if (e.target === outside.current)
+                    dispatch(changeState(states.LANDING))
+            }}
+        >
             <Nav />
 
             <div className="text-3xl self-center mb-10">

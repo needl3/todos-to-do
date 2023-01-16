@@ -4,8 +4,7 @@ import { GiCrossMark } from 'react-icons/gi'
 import { useDispatch } from 'react-redux'
 import { authStates } from '..'
 import { requestStatus } from '..'
-import { changeState, register, createPopup } from '../../../redux/actions/'
-import states from '../../../utils/states'
+import { register, createPopup } from '../../../redux/actions/'
 
 import urls from '../../../utils/urls'
 
@@ -32,19 +31,22 @@ export default function Register({ setState }) {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                credentials: 'same-origin',
             })
-                .then(r => {
+                .then(async r => {
                     if (r.status !== 200) throw r
 
                     setStatus(requestStatus.SENT)
                     dispatch(register())
-                    dispatch(changeState(states.LANDING))
+                    dispatch(createPopup((await r.json()).message, true, 4000))
                 })
                 .catch(async e => {
-                    const errmsg = (await e.json()).message
+                    console.error(e)
+                    let errmsg
+                    try {
+                        errmsg = (await e.json()).message
+                        dispatch(createPopup(errmsg, false, 2000))
+                    } catch {}
                     setStatus(requestStatus.FAILED)
-                    dispatch(createPopup(errmsg, false, 2000))
                 })
         }, 700)
     }

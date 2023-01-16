@@ -3,9 +3,14 @@ import thunk from 'redux-thunk'
 import reducers from './reducers'
 import states from '../utils/states'
 
+const tempMiddleware = store => next => action => {
+    console.log('Middleware')
+    return next(action)
+}
+
 const initialState = {
     auth: {
-        name: localStorage.getItem('name')
+        name: localStorage.getItem('name'),
     },
     todo: JSON.parse(localStorage.getItem('todos')) || [],
     state: {
@@ -15,4 +20,8 @@ const initialState = {
     popups: [],
 }
 
-export default createStore(reducers, initialState, applyMiddleware(thunk))
+export default createStore(
+    reducers,
+    initialState,
+    applyMiddleware(thunk, tempMiddleware)
+)
