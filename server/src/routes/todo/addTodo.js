@@ -8,18 +8,12 @@ const { addTodoQuery } = require('../../utils/sqldriver')
  */
 
 module.exports = async (req, res) => {
-    const { id, title, description, checked: isComplete } = req.body
+    const { id, title, description, checked } = req.body
 
     if (!id) return res.status(400).json({ message: 'Invalid payload' })
 
     try {
-        await addTodoQuery(
-            id,
-            req.user.username,
-            title,
-            description,
-            isComplete
-        )
+        await addTodoQuery(id, req.user.username, title, description, checked)
         res.json({ message: 'success' })
     } catch (e) {
         if (e.code === 'ER_DUP_ENTRY')

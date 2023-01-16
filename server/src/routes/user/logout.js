@@ -12,7 +12,7 @@ module.exports = async (req, res) => {
 
     try {
         await logoutQuery(username)
-        res.clearCookie('bearerToken')
+        res.clearCookie('accessToken')
         res.json({ message: 'User has been logged out.' })
     } catch (e) {
         console.error(e)

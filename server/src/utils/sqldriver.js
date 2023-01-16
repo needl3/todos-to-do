@@ -63,6 +63,7 @@ function loginQuery(email, password) {
         connection.commit()
     })
 }
+
 function newTokenQuery(username) {
     return new Promise((resolve, reject) => {
         connection.query(
@@ -120,11 +121,11 @@ function getTodoQuery(page, limit, username) {
     })
 }
 
-function addTodoQuery(id, username, title, description, isComplete) {
+function addTodoQuery(id, username, title, description, checked) {
     return new Promise((resolve, reject) => {
         connection.query(
-            'INSERT INTO todos(id, title, description, username, isComplete) values(?,?,?,?,?)',
-            [id, title, description, username, isComplete],
+            'INSERT INTO todos(id, title, description, username, checked) values(?,?,?,?,?)',
+            [id, title, description, username, checked],
             (e, r, f) => {
                 if (e) return reject(e)
                 resolve(true)
@@ -133,11 +134,11 @@ function addTodoQuery(id, username, title, description, isComplete) {
     })
 }
 
-function updateTodoQuery(id, username, title, description, isComplete) {
+function updateTodoQuery(id, username, title, description, checked) {
     return new Promise((resolve, reject) => {
         connection.query(
-            'UPDATE todos set title=?,description=?,isComplete=? where username=? and id=?',
-            [title, description, isComplete ? 1 : 0, username, String(id)],
+            'UPDATE todos set title=?,description=?,checked=? where username=? and id=?',
+            [title, description, checked || 0, username, String(id)],
             (e, r, f) => {
                 if (e) return reject(e)
                 resolve(true)
