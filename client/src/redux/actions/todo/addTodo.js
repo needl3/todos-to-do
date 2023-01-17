@@ -43,7 +43,6 @@ export default (content, reminder) => async dispatch => {
             })
         } else throw Error()
     } catch (e) {
-        console.error(e)
         updateLocalStorage(payload)
         dispatch({
             type: actions.ADD_TODO,

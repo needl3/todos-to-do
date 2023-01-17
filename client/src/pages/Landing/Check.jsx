@@ -19,7 +19,7 @@ export default function Check({ id, setChecking }) {
                         dispatch(checkTodo(id, checkStatus.DONE))
                         setChecking(false)
                     }}
-                    className="flex flex-col items-center gap-y-3 hover:outline hover:outline-1 px-5 py-3 rounded-md"
+                    className="flex flex-col items-center gap-y-3 hover:bg-zinc-800 px-5 py-3 rounded-md transition duration-300"
                 >
                     <BsCheckCircle color="lightgreen" size="4em" />
                     Mark complete
@@ -29,7 +29,7 @@ export default function Check({ id, setChecking }) {
                         dispatch(checkTodo(id, checkStatus.IN_PROGRESS))
                         setChecking(false)
                     }}
-                    className="flex flex-col items-center gap-y-3 hover:outline hover:outline-1 px-5 py-3 rounded-md"
+                    className="flex flex-col items-center gap-y-3 hover:bg-zinc-800 px-5 py-3 rounded-md transition duration-300"
                 >
                     <GiSandsOfTime color="yellow" size="4em" />
                     Mark In Progress
@@ -39,7 +39,7 @@ export default function Check({ id, setChecking }) {
                         dispatch(checkTodo(id, checkStatus.NOT_DONE))
                         setChecking(false)
                     }}
-                    className="flex flex-col items-center gap-y-3 hover:outline hover:outline-1 px-5 py-3 rounded-md"
+                    className="flex flex-col items-center gap-y-3 hover:bg-zinc-800 px-5 py-3 rounded-md transition duration-300"
                 >
                     <BiMinusCircle color="black" size="4em" />
                     Mark Unattempted

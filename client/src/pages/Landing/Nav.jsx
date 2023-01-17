@@ -11,7 +11,7 @@ export default function Nav() {
     return (
         <button
             id="user"
-            className={`border-2 px-3 py-1 ${
+            className={`border-2 px-8 py-1 ${
                 name
                     ? 'border-loggedin text-loggedin'
                     : ' text-notloggedin border-notloggedin'

@@ -19,7 +19,7 @@ export default function Landing() {
     return (
         <div
             ref={outside}
-            className="flex flex-col mx-4 border h-screen"
+            className="flex flex-col mx-4 h-screen"
             onClick={e => {
                 if (e.target === outside.current)
                     dispatch(changeState(states.LANDING))

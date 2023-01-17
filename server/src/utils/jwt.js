@@ -16,7 +16,7 @@ function jwtVerify(token) {
     return verified
 }
 
-function jwtSign(token, expiry = '10s') {
+function jwtSign(token, expiry = '5m') {
     return jwt.sign(token, process.env.SECRET , {expiresIn: expiry})
 }
 

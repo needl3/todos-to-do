@@ -14,7 +14,7 @@ const initialState = {
     },
     todo: JSON.parse(localStorage.getItem('todos')) || [],
     state: {
-        state: states.LANDING,
+        state: states.PROFILE,
         data: null,
     },
     popups: [],

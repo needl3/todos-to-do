@@ -16,7 +16,11 @@ module.exports = async (req, res, next) => {
         if (e.name === 'TokenExpiredError') {
             const token = await newTokenQuery(e.username)
             if (token) {
-                res.cookie('token', token, { httpOnly: true })
+                res.cookie('accessToken', token, {
+                    httpOnly: true,
+                    secure: process.env.NODE_ENV === 'production',
+                    sameSite: 'lax',
+                })
                 verified = jwtVerify(token)
             } else verified = token
         }

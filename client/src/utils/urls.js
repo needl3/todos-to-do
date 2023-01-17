@@ -5,6 +5,8 @@ const urls = {
     logout: base + '/api/user/logout',
     register: base + '/api/user/requestverification',
     todo: base + '/api/todo',
+    del: base + '/api/delete',
+    image: base + '/api/user/image'
 }
 
 export default urls
