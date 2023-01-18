@@ -175,6 +175,33 @@ function userQuery(username) {
     })
 }
 
+function getImageQuery(username) {
+    return new Promise((resolve, reject) => {
+        connection.query(
+            'SELECT image, imageSHA from user where username=?',
+            [username],
+            (e, r, f) => {
+                if (e) return reject(e)
+
+                resolve(r[0])
+            }
+        )
+    })
+}
+
+function uploadImageQuery(username, data, imageSHA) {
+    return new Promise((resolve, reject) => {
+        connection.query(
+            'UPDATE user set image=?, imageSHA=? where username=?',
+            [data, imageSHA, username],
+            (e, r, f) => {
+                if (e) return reject(e)
+
+                resolve(r[0])
+            }
+        )
+    })
+}
 module.exports = {
     loginQuery,
     logoutQuery,
@@ -186,4 +213,6 @@ module.exports = {
     deleteTodoQuery,
     newTokenQuery,
     userQuery,
+    getImageQuery,
+    uploadImageQuery,
 }

@@ -17,7 +17,6 @@ module.exports = async (req, res) => {
         const data = await jwtVerify(token)
         if (data) {
             await registerQuery(data.username, data.password, data.email)
-            console.log(req.headers)
             res.status(302).send(`
                 <style>
                     html{

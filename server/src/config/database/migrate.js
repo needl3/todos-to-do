@@ -34,6 +34,8 @@ connection.query(
         email VARCHAR(128) NOT NULL,\
         password VARCHAR(1020) NOT NULL,\
         accesstoken TEXT,\
+        image TEXT DEFAULT "https://raw.githubusercontent.com/Agneiss/todo-images/main/nouser.jpg",\
+        imageSHA TEXT,\
         PRIMARY KEY (email))\
     '
 )

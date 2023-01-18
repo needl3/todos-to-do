@@ -1,7 +1,8 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { MdFileUpload } from 'react-icons/md'
 import { AiOutlineCheck } from 'react-icons/ai'
 import urls from '../../../utils/urls'
+
 import { createPopup } from '../../../redux/actions'
 import { useDispatch } from 'react-redux'
 import Processing from '../../Auth/Misc/Processing'
@@ -26,13 +27,21 @@ const uploadStatus = Object.freeze({
 })
 
 export default function Image({ customClass }) {
-    const [image, setImage] = useState(
-        'https://thispersondoesnotexist.com/image'
-    )
+    const [image, setImage] = useState()
     const [uploadStatusIcon, setUploadStatusIcon] = useState(
         uploadStatus.NOT_INITIATED
     )
     const dispatch = useDispatch()
+    useEffect(() => {
+        // Fetched Image
+        fetch(urls.image, {credentials: 'include'})
+            .then(async r => {
+                setImage((await r.json()).image)
+            })
+            .catch(e => {
+                console.error(e)
+            })
+    }, [])
 
     function uploadImage(e) {
         setUploadStatusIcon(uploadStatus.UPLOADING)
@@ -51,12 +60,13 @@ export default function Image({ customClass }) {
                 .then(async r => {
                     if (r.status !== 200) throw r
                     const response = await r.json()
-                    setImage(response.imageLink)
+                    setImage(response.image)
                     setUploadStatusIcon(uploadStatus.UPLOADED)
                     setTimeout(
                         () => setUploadStatusIcon(uploadStatus.NOT_INITIATED),
                         3000
                     )
+                    dispatch(createPopup(response.message,true, 4000))
                 })
                 .catch(async e => {
                     const response = await e.json()
