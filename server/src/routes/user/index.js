@@ -8,6 +8,7 @@ router.get('/verify', require('./verify'))
 router.get('/', auth, require('./user.js'))
 router.post('/image', auth, require('./image.js'))
 router.get('/image', auth, require('./image.js'))
+router.get('/leaderboard', auth, require('./leaderboard'))
 
 router.get('*', (req, res) => {
     res.status(404).json({ message: 'No such endpoint defined in auth' })

@@ -202,6 +202,45 @@ function uploadImageQuery(username, data, imageSHA) {
         )
     })
 }
+function getCreatedTodoQuery(limit, page, user, date) {
+    return new Promise((resolve, reject) => {
+        connection.query(
+            'SELECT * from todos where username=? and createdAt>=? limit ?, ?',
+            [user, date, limit * page, limit],
+            (e, r, f) => {
+                if (e) return reject(e)
+
+                resolve(r)
+            }
+        )
+    })
+}
+function getCompletedTodoQuery(limit, page, user, date) {
+    return new Promise((resolve, reject) => {
+        connection.query(
+            'SELECT * from todos where username=? and checked=1 and modifiedAt>=? limit ?, ?',
+            [user, date, limit * page, limit],
+            (e, r, f) => {
+                if (e) return reject(e)
+
+                resolve(r)
+            }
+        )
+    })
+}
+function getTopUsersQuery(limit, page, user) {
+    return new Promise((resolve, reject) => {
+        connection.query(
+            'SELECT username,image from (select *) limit ?,?',
+            [limit * page, limit],
+            (e, r, f) => {
+                if (e) return reject(e)
+
+                resolve(r)
+            }
+        )
+    })
+}
 module.exports = {
     loginQuery,
     logoutQuery,
@@ -215,4 +254,7 @@ module.exports = {
     userQuery,
     getImageQuery,
     uploadImageQuery,
+    getCreatedTodoQuery,
+    getCompletedTodoQuery,
+    getTopUsersQuery,
 }
