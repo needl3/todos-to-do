@@ -14,7 +14,6 @@ import { useState } from 'react'
 import Check from './Check'
 
 export default function TodoItem({ title, checked, synced, id }) {
-    const loggedIn = useSelector(state => state.auth.name)
     const [isChecking, setChecking] = useState(false)
 
     const dispatch = useDispatch()
@@ -39,7 +38,7 @@ export default function TodoItem({ title, checked, synced, id }) {
                 value={title}
                 className="bg-background border border-todoborder text-2xl text-center rounded-md uppercase hover:cursor-pointer hover:border-orange-300 transition duration-300 focus:outline-none"
             ></input>
-            <Synced synced={synced} id={id}/>
+            <Synced synced={synced} id={id} />
             <button onClick={() => dispatch(removeTodo(id))}>
                 <MdOutlineDelete
                     size={'1.7em'}

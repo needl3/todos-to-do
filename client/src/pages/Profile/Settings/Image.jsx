@@ -34,7 +34,7 @@ export default function Image({ customClass }) {
     const dispatch = useDispatch()
     useEffect(() => {
         // Fetched Image
-        fetch(urls.image, {credentials: 'include'})
+        fetch(urls.image, { credentials: 'include' })
             .then(async r => {
                 setImage((await r.json()).image)
             })
@@ -66,7 +66,7 @@ export default function Image({ customClass }) {
                         () => setUploadStatusIcon(uploadStatus.NOT_INITIATED),
                         3000
                     )
-                    dispatch(createPopup(response.message,true, 4000))
+                    dispatch(createPopup(response.message, true, 4000))
                 })
                 .catch(async e => {
                     const response = await e.json()

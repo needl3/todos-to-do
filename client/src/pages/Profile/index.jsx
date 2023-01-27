@@ -1,7 +1,7 @@
 import { useState } from 'react'
 
-import CreatedStat from './CreatedStatistics'
-import CompletedStat from './CompletedStatistics'
+import CreatedStat from './Statistics/CreatedStatistics'
+import CompletedStat from './Statistics/CompletedStatistics'
 import Leaderboards from './Leaderboards'
 import Settings from './Settings'
 import ProfileNav from './ProfileNav'
@@ -14,7 +14,7 @@ export const profileStates = Object.freeze({
 })
 
 export default function Profile() {
-    const [state, setState] = useState(profileStates.SETTINGS)
+    const [state, setState] = useState(profileStates.COMPLETED_TODO)
 
     let currentState = null
     switch (state) {

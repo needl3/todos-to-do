@@ -42,6 +42,12 @@ export default (content, reminder) => dispatch => {
             .catch(e => {
                 updateLocalStorage(editedTodo)
             })
+            .finally(f => {
+                dispatch({
+                    type: actions.EDIT_TODO,
+                    payload,
+                })
+            })
     } else updateLocalStorage(editedTodo)
 
     const payload = store.getState().todo.map(todo => {
@@ -50,8 +56,4 @@ export default (content, reminder) => dispatch => {
     })
 
     console.log(payload)
-    return {
-        type: actions.EDIT_TODO,
-        payload,
-    }
 }
