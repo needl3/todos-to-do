@@ -2,7 +2,7 @@ import { profileStates } from '.'
 
 export default function ProfileNav({ setState, state }) {
     return (
-        <ul className="flex px-5 py-2 bg-background gap-x-16 rounded-lg w-10/12 mt-3 justify-center">
+        <ul className="flex px-5 py-2 bg-background justify-around rounded-lg w-10/12 mt-3 justify-center">
             <li
                 key={profileStates.CREATED_TODO}
                 className="rounded-lg bg-popupbg px-5 py-1 hover:cursor-pointer hover:text-slate-400 transition duration-200"
