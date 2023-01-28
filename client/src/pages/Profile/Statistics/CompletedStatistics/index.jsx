@@ -5,24 +5,11 @@ import History from '../History'
 import urls from '../../../../utils/urls'
 import { useDispatch } from 'react-redux'
 import { createPopup } from '../../../../redux/actions/popup'
+import { timeStamp } from '../CreatedStatistics'
 
-function getFormattedDate(toDeduct) {
-    return new Date(
-        new Date() - new Date().getTimezoneOffset() * 60000 - toDeduct
-    )
-        .toISOString()
-        .slice(0, -5)
-        .replace('T', ' ')
-}
+const LIMIT = 4
 
-export const timeStamp = Object.freeze({
-    ONE_WEEK: getFormattedDate(7 * 24 * 60 * 60 * 1000),
-    ONE_MONTH: getFormattedDate(30 * 24 * 60 * 60 * 1000),
-    THREE_MONTH: getFormattedDate(3 * 30 * 24 * 60 * 60 * 1000),
-    CUSTOM: null,
-})
-
-export default function CreateStatistics() {
+export default function CompleteStatistics() {
     const [createdTodos, setCreatedTodos] = useState([])
     const [upto, setUpto] = useState(timeStamp.ONE_WEEK)
     const [page, setPage] = useState(0)
@@ -30,6 +17,7 @@ export default function CreateStatistics() {
     const dispatch = useDispatch()
 
     useEffect(() => {
+        // Page parameter is redundant
         fetch(urls.completedStats + '?page=' + page + '&date=' + upto, {
             credentials: 'include',
         })
@@ -43,13 +31,17 @@ export default function CreateStatistics() {
                     createPopup('Cannot fetch data right now.', false, 3000)
                 )
             })
-    }, [upto, page])
+    }, [upto])
 
     return (
         <>
-            <div className="border rounded-md py-3 px-5 mt-3 mb-5 h-max flex gap-x-5">
-                <Todos todos={createdTodos} page={page} setPage={setPage} />
-                <Graph upto={upto} createdTodos={createdTodos} />
+            <div className="border rounded-md py-3 px-5 mt-3 mb-5 h-max flex gap-x-5 items-center">
+                <Todos
+                    todos={createdTodos.slice(page * LIMIT, (page + 1) * LIMIT)}
+                    page={page}
+                    setPage={setPage}
+                />
+                <Graph upto={upto} todos={createdTodos} />
             </div>
             <History handleUpdate={setUpto} stamp={upto} />
         </>

@@ -202,11 +202,11 @@ function uploadImageQuery(username, data, imageSHA) {
         )
     })
 }
-function getCreatedTodoQuery(limit, page, user, date) {
+function getCreatedTodoQuery(user, date) {
     return new Promise((resolve, reject) => {
         connection.query(
-            'SELECT * from todos where username=? and createdAt>=? limit ?, ?',
-            [user, date, limit * page, limit],
+            'SELECT title, createdAt, id, checked from todos where username=? and createdAt>=?',
+            [user, date],
             (e, r, f) => {
                 if (e) return reject(e)
 
@@ -215,14 +215,16 @@ function getCreatedTodoQuery(limit, page, user, date) {
         )
     })
 }
-function getCompletedTodoQuery(limit, page, user, date) {
+function getCompletedTodoQuery(user, date) {
+    console.log(date)
     return new Promise((resolve, reject) => {
         connection.query(
-            'SELECT * from todos where username=? and checked=1 and modifiedAt>=? limit ?, ?',
-            [user, date, limit * page, limit],
+            'SELECT title, modifiedAt as createdAt, id, checked from todos where username=? and checked=1 and modifiedAt>=?',
+            [user, date],
             (e, r, f) => {
                 if (e) return reject(e)
 
+                console.log(r)
                 resolve(r)
             }
         )

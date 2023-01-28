@@ -23,13 +23,17 @@ export default function Todos({ todos, page, setPage }) {
                 })}
             </ul>
             <button
-                onClick={() => setPage(page + 1)}
+                onClick={() => {
+                    if (todos.length) setPage(page + 1)
+                }}
                 className="text-sm border rounded-md px-2 py-1 float-right"
             >
                 Next
             </button>
             <button
-                onClick={() => setPage(page + 1)}
+                onClick={() => {
+                    if (page > 0) setPage(page - 1)
+                }}
                 className="text-sm border rounded-md px-3 py-1 float-left"
             >
                 Prev

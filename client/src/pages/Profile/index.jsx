@@ -14,7 +14,7 @@ export const profileStates = Object.freeze({
 })
 
 export default function Profile() {
-    const [state, setState] = useState(profileStates.LEADERBOARDS)
+    const [state, setState] = useState(profileStates.COMPLETED_TODO)
 
     let currentState = null
     switch (state) {

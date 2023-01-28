@@ -14,17 +14,13 @@ module.exports = async (req, res) => {
         date ||
         new Date(new Date() - new Date().getTimezoneOffset() * 60000 - 86400000)
             .toISOString()
-            .slice(0, -5)
-            .replace('T', ' ')
+            .slice(0, 10)
 
     try {
         const data = await getCreatedTodoQuery(
-            limit,
-            page,
             req.user.username,
             dateNew
         )
-        console.log(data)
         res.json({ data })
     } catch (e) {
         console.error(e)

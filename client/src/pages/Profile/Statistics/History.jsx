@@ -1,6 +1,9 @@
+import { useDispatch } from 'react-redux'
+import { createPopup } from '../../../redux/actions/popup'
 import { timeStamp } from './CreatedStatistics'
 
 export default function History({ handleUpdate, stamp }) {
+    const dispatch = useDispatch()
     return (
         <ul className="text-md flex flex-row gap-x-2">
             <button
@@ -43,6 +46,11 @@ export default function History({ handleUpdate, stamp }) {
                     stamp === timeStamp.CUSTOM ? 'bg-popupbg' : 'bg-inherit'
                 }
                         `}
+                onClick={() =>
+                    dispatch(
+                        createPopup("Haven't implemented it yet", false, 3000)
+                    )
+                }
             >
                 Custom
             </button>

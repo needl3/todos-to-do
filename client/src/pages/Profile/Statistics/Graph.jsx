@@ -1,32 +1,61 @@
 import { CChartBar } from '@coreui/react-chartjs'
+import { useDispatch } from 'react-redux'
+import { createPopup } from '../../../redux/actions/popup'
 import { timeStamp } from './CreatedStatistics'
 
-const xlabel = Object.freeze({
-    ONE_WEEK: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
-    ONE_MONTH: [...Array(30).keys()],
-    THREE_MONTH: ['1/2', '1', '3/2', '2', '5/2', '3'],
-    CUSTOM: null,
-})
-
-export default function Graph({ upto, createdTodos }) {
-    const adjustedData = {}
+export default function Graph({ upto, todos }) {
+    const dispatch = useDispatch()
+    const adjustedData = { mapped: {}, label: [] }
     switch (upto) {
         case timeStamp.ONE_WEEK:
-            adjustedData['label'] = xlabel.ONE_WEEK
-            adjustedData['values'] = [...Array(7).keys()]
-            console.log(adjustedData)
+            let count = 7
+
+            // Prepare label and data placeholder
+            while (count--) {
+                const nonFormattedDate = new Date(new Date() - count * 86400000)
+                adjustedData['mapped'][
+                    nonFormattedDate.toString().split(' ')[2]
+                ] = 0
+                adjustedData['label'].push(
+                    nonFormattedDate.toString().split(' ')[0]
+                )
+            }
+
+            // Parse values
+            todos.forEach(todo => {
+                const date = todo.createdAt.split('T')[0].split('-')[2]
+                adjustedData['mapped'][date] =
+                    (adjustedData['mapped'][date] || 0) + 1
+            })
+
             break
         case timeStamp.ONE_MONTH:
-            adjustedData['label'] = xlabel.ONE_MONTH
-            adjustedData['values'] = [...Array(30).keys()]
+            count = 30
+
+            // Prepare label and data placeholder
+            while (count--) {
+                const nonFormattedDate = new Date(new Date() - count * 86400000)
+                console.log(nonFormattedDate)
+                adjustedData['mapped'][
+                    nonFormattedDate.toString().split(' ')[2]
+                ] = 0
+                adjustedData['label'].push(
+                    nonFormattedDate.toString().split(' ')[2]
+                )
+            }
+
+            // Parse values
+            todos.forEach(todo => {
+                const date = todo.createdAt.split('T')[0].split('-')[2]
+                adjustedData['mapped'][date] =
+                    (adjustedData['mapped'][date] || 0) + 1
+            })
+
             break
         case timeStamp.THREE_MONTH:
-            adjustedData['label'] = xlabel.THREE_MONTH
-            adjustedData['values'] = [...Array(6).keys()]
-            break
-        default:
-            adjustedData['label'] = xlabel.CUSTOM
-            break
+            dispatch(
+                createPopup("Haven't implemented this one yet.", false, 3000)
+            )
     }
 
     return (
@@ -36,7 +65,7 @@ export default function Graph({ upto, createdTodos }) {
                 datasets: [
                     {
                         label: 'Number of Todos',
-                        data: adjustedData.values,
+                        data: Object.values(adjustedData.mapped),
                         backgroundColor: 'lightyellow',
                         borderColor: 'rgba(40,40,40,40)',
                     },
