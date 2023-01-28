@@ -14,21 +14,21 @@ export const profileStates = Object.freeze({
 })
 
 export default function Profile() {
-    const [state, setState] = useState(profileStates.COMPLETED_TODO)
+    const [state, setState] = useState(profileStates.LEADERBOARDS)
 
     let currentState = null
     switch (state) {
         case profileStates.CREATED_TODO:
-            currentState = <CreatedStat setState={setState} state={state} />
+            currentState = <CreatedStat />
             break
         case profileStates.COMPLETED_TODO:
-            currentState = <CompletedStat setState={setState} state={state} />
+            currentState = <CompletedStat />
             break
         case profileStates.LEADERBOARDS:
-            currentState = <Leaderboards setState={setState} state={state} />
+            currentState = <Leaderboards />
             break
         case profileStates.SETTINGS:
-            currentState = <Settings setState={setState} state={state} />
+            currentState = <Settings />
             break
         default:
             currentState = <></>

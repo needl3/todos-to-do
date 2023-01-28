@@ -8,11 +8,11 @@ const { getTopUsersQuery } = require('../../utils/sqldriver')
  */
 
 module.exports = async (req, res) => {
-    const { limit = 2, page = 0 } = req.params
+    const { limit = 5, page = 0 } = req.query
 
     try {
         const data = await getTopUsersQuery(limit, page, req.user.username)
-        res.json({ data })
+        res.json({ data, limit })
     } catch (e) {
         console.error(e)
         res.status(500).json({ message: 'Something went wrong.' })

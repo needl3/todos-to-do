@@ -230,8 +230,12 @@ function getCompletedTodoQuery(limit, page, user, date) {
 }
 function getTopUsersQuery(limit, page, user) {
     return new Promise((resolve, reject) => {
+        //
+        // There must be another way to compute completion ration in below query
+        // This seems ineffecient
+        //
         connection.query(
-            'SELECT username,image from (select *) limit ?,?',
+            'SELECT * from (select username, sum(checked=1) as completed, count(checked) as created, (sum(checked=1)/count(checked)) as completion_ratio from todos group by username limit ?, ?) as top join (select username, image from user) as user using (username) order by completion_ratio desc',
             [limit * page, limit],
             (e, r, f) => {
                 if (e) return reject(e)

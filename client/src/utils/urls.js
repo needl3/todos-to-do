@@ -9,6 +9,7 @@ const urls = {
     image: base + '/api/user/image',
     createdStats: base + '/api/todo/getCreatedStat',
     completedStats: base + '/api/todo/getCompletedStat',
+    leaderboard: base + '/api/user/leaderboard'
 }
 
 export default urls
