@@ -8,7 +8,7 @@ const { getCompletedTodoQuery } = require('../../utils/sqldriver')
  */
 
 module.exports = async (req, res) => {
-    const { limit = 5, page = 0, date } = req.params
+    const { limit = 5, page = 0, date } = req.query
 
     const dateNew =
         date ||
