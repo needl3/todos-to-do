@@ -1,6 +1,5 @@
-const base = 'http://localhost:5000'
+const base = process.env.ORIGIN
 const urls = {
-    base,
     login: base + '/api/user/login',
     logout: base + '/api/user/logout',
     register: base + '/api/user/requestverification',
@@ -9,7 +8,7 @@ const urls = {
     image: base + '/api/user/image',
     createdStats: base + '/api/todo/getCreatedStat',
     completedStats: base + '/api/todo/getCompletedStat',
-    leaderboard: base + '/api/user/leaderboard'
+    leaderboard: base + '/api/user/leaderboard',
 }
 
 export default urls

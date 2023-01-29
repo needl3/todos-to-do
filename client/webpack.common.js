@@ -1,5 +1,12 @@
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const webpack = require('webpack')
+require('dotenv').config({ path: path.resolve(__dirname, '.env') })
+
+const formattedEnv = { env: {} }
+Object.keys(process.env).forEach(env => {
+    formattedEnv.env[env] = JSON.stringify(process.env[env])
+})
 
 module.exports = {
     entry: path.resolve(__dirname, 'src', 'index.js'),
@@ -51,5 +58,6 @@ module.exports = {
             template: path.resolve(__dirname, 'public', 'index.html.template'),
             favicon: './public/favicon.ico',
         }),
+        new webpack.DefinePlugin({ process: formattedEnv }),
     ],
 }

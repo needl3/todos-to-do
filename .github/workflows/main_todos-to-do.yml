@@ -12,6 +12,9 @@ on:
 jobs:
     build:
         runs-on: ubuntu-latest
+        env:
+          ORIGIN: ${{vars.ORIGIN}}
+
 
         steps:
             - uses: actions/checkout@v2
@@ -50,12 +53,15 @@ jobs:
               with:
                   name: node-app
 
+            - name: Install dependencies
+              run: |
+                  npm install
+
             - name: 'Deploy to Azure Web App'
               id: deploy-to-webapp
               uses: azure/webapps-deploy@v2
               with:
-                  app-name: 'todos-to-do'
+                  app-name: ${{ vars.APP_NAME }}
                   slot-name: 'Production'
                   publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_9CA68C7337D6451196AF809EC3B5F4F1 }}
                   package: .
-                  install-script: package
