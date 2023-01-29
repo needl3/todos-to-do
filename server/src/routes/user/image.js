@@ -27,9 +27,9 @@ async function uploadAndGetImageLink(image, user, imageSHA) {
         owner,
         repo,
         message: 'Profile Picture upload for ' + user,
-        path: user+ '.png',
+        path: user + '.png',
         content: image,
-        sha: imageSHA
+        sha: imageSHA,
     })
 
     return {
@@ -42,9 +42,9 @@ module.exports = async (req, res) => {
     const { image } = req.body
 
     try {
-        const data = (await getImageQuery(req.user.username))
-        const dbImageLink = data.image
-        
+        const data = await getImageQuery(req.user.username)
+        const dbImageLink = data.image || process.env.DEFAULT_IMAGE_LINK
+
         if (image) {
             const uploadedImageData = await uploadAndGetImageLink(
                 image.split(',')[1],
@@ -52,8 +52,15 @@ module.exports = async (req, res) => {
                 data.imageSHA
             )
 
-            await uploadImageQuery(req.user.username, uploadedImageData.imageLink, uploadedImageData.imageSHA)
-            return res.json({ message: 'Change successful. Might take some time to reflect.', image: uploadedImageData.imageLink })
+            await uploadImageQuery(
+                req.user.username,
+                uploadedImageData.imageLink,
+                uploadedImageData.imageSHA
+            )
+            return res.json({
+                message: 'Change successful. Might take some time to reflect.',
+                image: uploadedImageData.imageLink,
+            })
         }
 
         if (!data) throw data
@@ -63,6 +70,6 @@ module.exports = async (req, res) => {
         console.error(e)
         if (image)
             return res.status(500).json({ message: "Couldn't upload Image." })
-        res.status(500).json({ message: 'Something went wrong'  })
+        res.status(500).json({ message: 'Something went wrong' })
     }
 }

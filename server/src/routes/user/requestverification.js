@@ -2,7 +2,6 @@ const express = require('express')
 const { sendVerificationEmail } = require('../../utils/mail')
 const { jwtSign } = require('../../utils/jwt')
 const { checkAccountQuery } = require('../../utils/sqldriver')
-
 /**
  * @param {express.Request} req
  * @param {express.Response} res

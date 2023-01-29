@@ -6,6 +6,6 @@ module.exports = mysql.createConnection({
     password: process.env.DB_PASS,
     database: process.env.DB,
     ssl: {
-        rejectUnauthorized: false,
+        rejectUnauthorized: true,
     },
 })

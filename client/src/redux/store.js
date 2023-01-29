@@ -4,7 +4,6 @@ import reducers from './reducers'
 import states from '../utils/states'
 
 const tempMiddleware = store => next => action => {
-    console.log('Middleware')
     return next(action)
 }
 
@@ -14,7 +13,7 @@ const initialState = {
     },
     todo: JSON.parse(localStorage.getItem('todos')) || [],
     state: {
-        state: states.PROFILE,
+        state: states.LANDING,
         data: null,
     },
     popups: [],

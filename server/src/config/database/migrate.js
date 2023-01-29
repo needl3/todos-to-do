@@ -34,7 +34,7 @@ connection.query(
         email VARCHAR(128) NOT NULL,\
         password VARCHAR(1020) NOT NULL,\
         accesstoken TEXT,\
-        image TEXT DEFAULT "https://raw.githubusercontent.com/Agneiss/todo-images/main/nouser.jpg",\
+        image TEXT,\
         imageSHA TEXT,\
         PRIMARY KEY (email))\
     '
@@ -50,6 +50,8 @@ connection.query(
         description TEXT ,\
         checked INT NOT NULL DEFAULT 0,\
         remindAt VARCHAR(20),\
+        createdAt timestamp default current_timestamp,\
+        modifiedAt timestamp default current_timestamp on update current_timestamp,\
         FOREIGN KEY (username) REFERENCES user(username)\
         )\
     '
