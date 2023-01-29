@@ -34,6 +34,8 @@ connection.query(
         email VARCHAR(128) NOT NULL,\
         password VARCHAR(1020) NOT NULL,\
         accesstoken TEXT,\
+        image TEXT DEFAULT "https://raw.githubusercontent.com/Agneiss/todo-images/main/nouser.jpg",\
+        imageSHA TEXT,\
         PRIMARY KEY (email))\
     '
 )
@@ -43,9 +45,11 @@ connection.query(
         CREATE TABLE IF NOT EXISTS todos (\
         id VARCHAR(128) NOT NULL PRIMARY KEY,\
         username VARCHAR(128) NOT NULL,\
+        cloud BOOLEAN DEFAULT 1,\
         title VARCHAR(1020) ,\
         description TEXT ,\
-        isComplete Boolean NOT NULL DEFAULT 0,\
+        checked INT NOT NULL DEFAULT 0,\
+        remindAt VARCHAR(20),\
         FOREIGN KEY (username) REFERENCES user(username)\
         )\
     '

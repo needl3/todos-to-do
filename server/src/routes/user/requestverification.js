@@ -25,8 +25,8 @@ module.exports = async (req, res) => {
                 username: username,
                 email: email,
                 password: password,
-            }
-            //            '5m'
+            },
+            '5m'
         )
         await sendVerificationEmail(email, token)
         res.json({ message: 'Sent verification email' })

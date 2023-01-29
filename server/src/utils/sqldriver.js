@@ -63,6 +63,7 @@ function loginQuery(email, password) {
         connection.commit()
     })
 }
+
 function newTokenQuery(username) {
     return new Promise((resolve, reject) => {
         connection.query(
@@ -120,11 +121,11 @@ function getTodoQuery(page, limit, username) {
     })
 }
 
-function addTodoQuery(id, username, title, description, isComplete) {
+function addTodoQuery(id, username, title, description, checked) {
     return new Promise((resolve, reject) => {
         connection.query(
-            'INSERT INTO todos(id, title, description, username, isComplete) values(?,?,?,?,?)',
-            [id, title, description, username, isComplete],
+            'INSERT INTO todos(id, title, description, username, checked) values(?,?,?,?,?)',
+            [id, title, description, username, checked],
             (e, r, f) => {
                 if (e) return reject(e)
                 resolve(true)
@@ -133,11 +134,11 @@ function addTodoQuery(id, username, title, description, isComplete) {
     })
 }
 
-function updateTodoQuery(id, username, title, description, isComplete) {
+function updateTodoQuery(id, username, title, description, checked) {
     return new Promise((resolve, reject) => {
         connection.query(
-            'UPDATE todos set title=?,description=?,isComplete=? where username=? and id=?',
-            [title, description, isComplete ? 1 : 0, username, String(id)],
+            'UPDATE todos set title=?,description=?,checked=? where username=? and id=?',
+            [title, description, checked || 0, username, String(id)],
             (e, r, f) => {
                 if (e) return reject(e)
                 resolve(true)
@@ -174,6 +175,78 @@ function userQuery(username) {
     })
 }
 
+function getImageQuery(username) {
+    return new Promise((resolve, reject) => {
+        connection.query(
+            'SELECT image, imageSHA from user where username=?',
+            [username],
+            (e, r, f) => {
+                if (e) return reject(e)
+
+                resolve(r[0])
+            }
+        )
+    })
+}
+
+function uploadImageQuery(username, data, imageSHA) {
+    return new Promise((resolve, reject) => {
+        connection.query(
+            'UPDATE user set image=?, imageSHA=? where username=?',
+            [data, imageSHA, username],
+            (e, r, f) => {
+                if (e) return reject(e)
+
+                resolve(r[0])
+            }
+        )
+    })
+}
+function getCreatedTodoQuery(user, date) {
+    return new Promise((resolve, reject) => {
+        connection.query(
+            'SELECT title, createdAt, id, checked from todos where username=? and createdAt>=?',
+            [user, date],
+            (e, r, f) => {
+                if (e) return reject(e)
+
+                resolve(r)
+            }
+        )
+    })
+}
+function getCompletedTodoQuery(user, date) {
+    console.log(date)
+    return new Promise((resolve, reject) => {
+        connection.query(
+            'SELECT title, modifiedAt as createdAt, id, checked from todos where username=? and checked=1 and modifiedAt>=?',
+            [user, date],
+            (e, r, f) => {
+                if (e) return reject(e)
+
+                console.log(r)
+                resolve(r)
+            }
+        )
+    })
+}
+function getTopUsersQuery(limit, page, user) {
+    return new Promise((resolve, reject) => {
+        //
+        // There must be another way to compute completion ration in below query
+        // This seems ineffecient
+        //
+        connection.query(
+            'SELECT * from (select username, sum(checked=1) as completed, count(checked) as created, (sum(checked=1)/count(checked)) as completion_ratio from todos group by username limit ?, ?) as top join (select username, image from user) as user using (username) order by completion_ratio desc',
+            [limit * page, limit],
+            (e, r, f) => {
+                if (e) return reject(e)
+
+                resolve(r)
+            }
+        )
+    })
+}
 module.exports = {
     loginQuery,
     logoutQuery,
@@ -185,4 +258,9 @@ module.exports = {
     deleteTodoQuery,
     newTokenQuery,
     userQuery,
+    getImageQuery,
+    uploadImageQuery,
+    getCreatedTodoQuery,
+    getCompletedTodoQuery,
+    getTopUsersQuery,
 }

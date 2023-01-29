@@ -1,4 +1,8 @@
-:root {
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
     background-color: #222222;
     color: #aaaaaa;
 }

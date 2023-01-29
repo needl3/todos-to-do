@@ -11,12 +11,16 @@ const { newTokenQuery } = require('../utils/sqldriver')
 module.exports = async (req, res, next) => {
     let verified = null
     try {
-        verified = jwtVerify(req?.headers?.authorization?.split(' ')[1])
+        verified = jwtVerify(req?.headers?.cookie.split('=').at(-1))
     } catch (e) {
         if (e.name === 'TokenExpiredError') {
             const token = await newTokenQuery(e.username)
             if (token) {
-                res.cookie('accessToken', token, { httpOnly: true })
+                res.cookie('accessToken', token, {
+                    httpOnly: true,
+                    secure: process.env.NODE_ENV === 'production',
+                    sameSite: 'lax',
+                })
                 verified = jwtVerify(token)
             } else verified = token
         }
