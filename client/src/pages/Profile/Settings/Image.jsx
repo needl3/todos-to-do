@@ -48,7 +48,6 @@ export default function Image({ customClass }) {
         const imageData = new FileReader()
         imageData.readAsDataURL(e.target.files[0])
         imageData.onload = e => {
-            console.log('Loaded')
             fetch(urls.image, {
                 method: 'POST',
                 credentials: 'include',
@@ -62,16 +61,16 @@ export default function Image({ customClass }) {
                     const response = await r.json()
                     setImage(response.image)
                     setUploadStatusIcon(uploadStatus.UPLOADED)
-                    setTimeout(
-                        () => setUploadStatusIcon(uploadStatus.NOT_INITIATED),
-                        3000
-                    )
                     dispatch(createPopup(response.message, true, 4000))
                 })
                 .catch(async e => {
-                    const response = await e.json()
+                    const response = {
+                        message: 'Max image size limited to 1Mb',
+                    }
+                    if (e.status !== 413) response = await e.json()
                     dispatch(createPopup(response.message, false, 3000))
-                    setUploadStatusIcon(uploadStatus.FAILED)
+                })
+                .finally(() => {
                     setTimeout(
                         () => setUploadStatusIcon(uploadStatus.NOT_INITIATED),
                         3000
