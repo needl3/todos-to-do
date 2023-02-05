@@ -1,6 +1,6 @@
 import * as actions from '../actiontypes'
 import store from '../../store'
-import { checkStatus, syncStatus } from '../../../utils/states'
+import { syncStatus } from '../../../utils/states'
 import urls from '../../../utils/urls'
 
 function updateLocalStorage(payload) {

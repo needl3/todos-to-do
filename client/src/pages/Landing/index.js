@@ -9,12 +9,17 @@ import changeState from '../../redux/actions/changeState'
 
 import states, { checkStatus } from '../../utils/states'
 import { useRef } from 'react'
+import { syncTodo } from '../../redux/actions'
+import { useEffect } from 'react'
 
 export default function Landing() {
     const todos = useSelector(state => state.todo)
     const outside = useRef()
 
     const dispatch = useDispatch()
+    useEffect(() => {
+        dispatch(syncTodo())
+    }, [])
 
     return (
         <div
