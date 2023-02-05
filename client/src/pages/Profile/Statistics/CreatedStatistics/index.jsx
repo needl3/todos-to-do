@@ -42,7 +42,7 @@ export default function CreateStatistics() {
             })
             .catch(e => {
                 dispatch(
-                    createPopup('Cannot fetch data right now.', false, 3000)
+                    createPopup('Cannot fetch todos right now.', false, 3000)
                 )
             })
     }, [upto])

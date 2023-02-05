@@ -1,5 +1,4 @@
 import * as actions from '../actions/actiontypes'
-
 export default function todoReducer(
     state = JSON.parse(localStorage.getItem('todos')) || [],
     action

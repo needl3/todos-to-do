@@ -58,7 +58,13 @@ export default function Leaderboard() {
                             <h2 className="px-2 border rounded-md border-yellow-500">
                                 {item.rank}
                             </h2>
-                            <img src={item.image} className="w-10 rounded-xl" />
+                            <img
+                                src={
+                                    item.image ||
+                                    'https://raw.githubusercontent.com/Agneiss/todo-images/main/nouser.jpg'
+                                }
+                                className="w-10 rounded-xl"
+                            />
                             <p className="px-5 py-2 border rounded-md border-todoborder">
                                 {item.username}
                             </p>

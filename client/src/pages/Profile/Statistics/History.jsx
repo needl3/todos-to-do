@@ -1,5 +1,5 @@
 import { useDispatch } from 'react-redux'
-import { createPopup } from '../../../redux/actions/popup'
+import {createPopup} from '../../../redux/actions/popup'
 import { timeStamp } from './CreatedStatistics'
 
 export default function History({ handleUpdate, stamp }) {
@@ -35,9 +35,15 @@ export default function History({ handleUpdate, stamp }) {
                         : 'bg-inherit'
                 }
                         `}
-                onClick={() => {
-                    handleUpdate(timeStamp.THREE_MONTH)
-                }}
+                onClick={() =>
+                    dispatch(
+                        createPopup(
+                            "Haven't implemented this one yet.",
+                            false,
+                            3000
+                        )
+                    )
+                }
             >
                 Last 3 months
             </button>
@@ -48,7 +54,11 @@ export default function History({ handleUpdate, stamp }) {
                         `}
                 onClick={() =>
                     dispatch(
-                        createPopup("Haven't implemented it yet", false, 3000)
+                        createPopup(
+                            "Haven't implemented this one yet.",
+                            false,
+                            3000
+                        )
                     )
                 }
             >
