@@ -35,8 +35,6 @@ export default id => async (dispatch, getState) => {
         dispatch({ type: actions.SYNC_TODO, payload: todos })
     } else {
         // Is triggered every time user logs in or first lands or with every syncTodo() call
-        // Currently disabled(Why not delete this then, you ask?)
-        // Because I don't want to write this again if I change my mind to auto sync on login later
         try {
             const response = await fetch(urls.todo, {
                 credentials: 'include',
@@ -49,13 +47,12 @@ export default id => async (dispatch, getState) => {
             const integratedTodos = [
                 ...serverTodos,
                 ...todos.filter(t => {
-                    serverTodos.filter(s => s.id !== t.id).length !== 0
+                    for (let s of serverTodos) if (s.id === t.id) return false
+                    return true
                 }),
             ]
 
             dispatch({ type: actions.SYNC_TODO, payload: integratedTodos })
-            // Make a useEffect to update Local storage automatically
-            // if todos change later
             localStorage.setItem('todos', JSON.stringify(integratedTodos))
         } catch (e) {
             // If user is not logged in
