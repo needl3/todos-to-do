@@ -35,7 +35,6 @@ export default function Graph({ upto, todos }) {
             // Prepare label and data placeholder
             while (count--) {
                 const nonFormattedDate = new Date(new Date() - count * 86400000)
-                console.log(nonFormattedDate)
                 adjustedData['mapped'][
                     nonFormattedDate.toString().split(' ')[2]
                 ] = 0
@@ -52,10 +51,6 @@ export default function Graph({ upto, todos }) {
             })
 
             break
-        case timeStamp.THREE_MONTH:
-            dispatch(
-                createPopup("Haven't implemented this one yet.", false, 3000)
-            )
     }
 
     return (

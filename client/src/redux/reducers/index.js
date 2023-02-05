@@ -5,7 +5,6 @@ import todo from './todo'
 import state from './state'
 
 import * as actions from '../actions/actiontypes'
-
 function popups(state = [], action) {
     switch (action.type) {
         case actions.ADD_POPUP:

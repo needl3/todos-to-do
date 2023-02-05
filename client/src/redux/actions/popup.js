@@ -8,7 +8,7 @@ export function createPopup(message, positive = true, time = 1000) {
             colorbg: positive ? 'bg-popuppositive' : 'bg-popupnegative',
             color: positive ? 'text-green' : 'text-red-100',
             time,
-            id: Date.now().toString().slice(-5),
+            id: Date.now().toString().slice(-7),
         },
     }
 }
