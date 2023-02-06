@@ -9,6 +9,7 @@ const urls = {
     createdStats: base + '/api/todo/getCreatedStat',
     completedStats: base + '/api/todo/getCompletedStat',
     leaderboard: base + '/api/user/leaderboard',
+    user: base + '/api/user'
 }
 
 export default urls
