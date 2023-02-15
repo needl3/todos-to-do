@@ -2,6 +2,7 @@ const express = require('express')
 const { sendVerificationEmail } = require('../../utils/mail')
 const { jwtSign } = require('../../utils/jwt')
 const { checkAccountQuery } = require('../../utils/sqldriver')
+const bcrypt = require('bcrypt')
 /**
  * @param {express.Request} req
  * @param {express.Response} res
@@ -19,11 +20,13 @@ module.exports = async (req, res) => {
         // Raises error "Duplicate Entry" if account exists with provided creds
         await checkAccountQuery(username, email)
 
+        const hashedPassword = bcrypt.hashSync(password, 10)
+
         const token = jwtSign(
             {
                 username: username,
                 email: email,
-                password: password,
+                password: hashedPassword,
             },
             '5m'
         )
