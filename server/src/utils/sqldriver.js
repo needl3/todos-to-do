@@ -1,5 +1,6 @@
 const connection = require('../config/database')
 const { jwtSign } = require('../utils/jwt')
+const bcrypt = require('bcrypt')
 
 function registerQuery(username, password, email) {
     return new Promise((resolve, reject) => {
@@ -39,12 +40,15 @@ function checkAccountQuery(username, email) {
 function loginQuery(email, password) {
     return new Promise((resolve, reject) => {
         connection.query(
-            'SELECT username from user where email=? and password=?',
-            [email, password],
+            'SELECT username,password from user where email=?',
+            [email],
             (e, r, f) => {
                 if (e) return reject('invalid-credentials')
 
                 if (!r.length) return reject('no-user')
+
+                if (!bcrypt.compareSync(password, r[0].password))
+                    return reject('invalid-credentials')
 
                 const accessToken = jwtSign({ username: r[0].username })
                 connection.query(
@@ -230,7 +234,7 @@ function getCompletedTodoQuery(user, date) {
         )
     })
 }
-function getTopUsersQuery(limit, page, user) {
+function getTopUsersQuery(limit, page) {
     return new Promise((resolve, reject) => {
         //
         // There must be another way to compute completion ration in below query
