@@ -11,7 +11,7 @@ module.exports = async (req, res) => {
     const { limit = 5, page = 0 } = req.query
 
     try {
-        const data = await getTopUsersQuery(limit, page, req.user.username)
+        const data = await getTopUsersQuery(limit, page)
         res.json({ data, limit })
     } catch (e) {
         console.error(e)

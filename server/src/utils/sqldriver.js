@@ -234,7 +234,7 @@ function getCompletedTodoQuery(user, date) {
         )
     })
 }
-function getTopUsersQuery(limit, page, user) {
+function getTopUsersQuery(limit, page) {
     return new Promise((resolve, reject) => {
         //
         // There must be another way to compute completion ration in below query
